@@ -1,4 +1,5 @@
 # Balerin
+## Your application will dance with Balerin!
 
 Balerin is a python package startup orchestrator. it can handle loading all
 packages of an application at startup time respecting package dependencies.
