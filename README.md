@@ -8,11 +8,11 @@ Loading all application packages at startup time has many benefits:
 
 - Revealing all syntax errors and invalid imports on startup, preventing runtime failure.
 - Initializing all required objects at startup, providing better performance at runtime.
-- Triggering all first level objects of a module (.ex decorators) without the need to 
+- Triggering all first level objects of a module (ex. decorators) without the need to 
   manually trigger them.
 - Better code maintainability by letting you distribute the code on their suitable 
   packages and preventing the need for a centralized location for nonsense 
-  imports (.ex models, hooks, managers, ...).
+  imports (ex. models, hooks, managers, ...).
 
 ## Installing
 
