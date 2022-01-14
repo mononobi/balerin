@@ -109,6 +109,12 @@ class AccountingPackage(Package):
 Now you can load your packages respecting their dependencies on each other, using 
 the sample code in **`Basic Usage`** section.
 
+### How to Choose Between Basic or Pro Usages:
+
+In most cases, you don't need to use the `Pro Usage` style. unless your application 
+architecture is based on `Dependency Injection` and `IoC` concepts. so, when in doubt, go 
+with `Basic Usage`.
+
 ### Initialization Arguments of PackagingManager Class:
 
 - `root`: it can be a single or multiple paths to different packages of your application.
@@ -154,12 +160,6 @@ balerin.load('my_app.accounting.api')
 loaded_packages = balerin.get_loaded_packages()
 is_package_loaded = balerin.is_package_loaded('my_app.accounting')
 ```
-
-## How to Choose Between Basic or Pro Usages:
-
-In most cases, you don't need to use the `Pro Usage` style. unless your application 
-architecture is based on `Dependency Injection` and `IoC` concepts. so, when in doubt, go 
-with `Basic Usage`.
 
 ## Hint
 
