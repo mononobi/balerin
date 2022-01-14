@@ -17,6 +17,21 @@ Loading all application packages at startup has many benefits:
   specific name (usually tasks).
 - Populating application level caches at startup to boost performance at runtime.
 
+## Can I Use Balerin With?
+
+Yes, you can. Balerin can be used in conjunction with all major frameworks 
+([Flask](https://github.com/pallets/flask), [FastAPI](https://github.com/tiangolo/fastapi), 
+ [Sanic](https://github.com/sanic-org/sanic), [AIOHTTP](https://github.com/aio-libs/aiohttp), 
+ [Bottle](https://github.com/bottlepy/bottle), [Pyramid](https://github.com/Pylons/pyramid),
+ [Tornado](https://github.com/tornadoweb/tornado), [Django](https://github.com/django/django))
+and many more. You can also use it on bare python applications without a 
+framework, it's all up to you.
+
+### What about Pyrin?
+
+It's a good question. [Pyrin](https://github.com/mononobi/pyrin) has builtin support for 
+Balerin, so you can just use Pyrin without the need to prepare Balerin on your own.
+
 ## Installing
 
 **Install using pip**:
