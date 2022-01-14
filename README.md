@@ -109,18 +109,18 @@ the sample code in **`Basic Usage`** section.
 - `root`: it can be a single or multiple paths to different packages of your application.
           Balerin will load all sub-packages of each path respectively.
 - `base_component`: specifies a module name which must be loaded before all other modules 
-                    in each package if available. for example `manager`. this value could be 
-                    overridden in each `Package` class using `COMPONENT_NAME` attribute.
+                    in each package if available. for example *manager*. this value could be 
+                    overridden in each *Package* class using *COMPONENT_NAME* attribute.
 - `verbose`: specifies that loading info should be printed on each step.
              defaults to True if not provided.
 - `ignored_packages`: list of package names that must be ignored from loading. package names 
-                      must be fully qualified. for example: `my_app.accounting.public`. 
+                      must be fully qualified. for example: *my_app.accounting.public*. 
                       notice that if a package that has sub-packages added to ignore list, 
                       all of its sub-packages will be ignored automatically even if not 
                       present in ignore list.
 - `ignored_modules`: list of module names that must be ignored from loading. 
                      module names could be fully qualified or just the module name itself.
-                     for example: `my_app.customers.models` or `models`.
+                     for example: *my_app.customers.models* or *models*.
                      notice that if only module name is provided, then all modules matching 
                      the provided name will be ignored from loading.
 
