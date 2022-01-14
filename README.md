@@ -49,7 +49,7 @@ Loading all application packages at startup has many benefits:
 
 ### Basic Usage:
 
-**`start.py:`**
+**`my_app/__init__.py:`**
 
 ```python
 import os
@@ -58,14 +58,19 @@ from flask import Flask
 from balerin import PackagingManager
 
 
-if __name__ == '__main__':
-    my_app = Flask()
-    working_directory = os.path.abspath(os.getcwd())
-    root_package = os.path.join(working_directory, 'my_app')
-    balerin = PackagingManager(root_package)
-    balerin.load_components()
-    # Here the application is loaded, and you can call run() on your app:
-    my_app.run()
+app = Flask('my_app')
+working_directory = os.path.abspath(os.getcwd())
+root_package = os.path.join(working_directory, 'my_app')
+balerin = PackagingManager(root_package)
+```
+
+**`start.py:`**
+
+```python
+from my_app import balerin, app
+
+balerin.load_components()
+app.run()
 ```
 
 ### Pro Usage:
