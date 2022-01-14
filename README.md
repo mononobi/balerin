@@ -129,6 +129,32 @@ the sample code in **`Basic Usage`** section.
                      notice that if only module name is provided, then all modules matching 
                      the provided name will be ignored from loading.
 
+### PackagingManager Public Interface:
+
+Once you create an object of `PackagingManager` class, you can call 
+these methods on the created object:
+
+- `load_components`: load all packages inside the root path.
+- `load`: load a single module with provided name.
+- `get_loaded_packages`: get a list of all loaded package names.
+- `is_package_loaded`: get a value indicating that given package is loaded.
+
+```python
+import os
+
+from balerin import PackagingManager
+
+
+working_directory = os.path.abspath(os.getcwd())
+root_package = os.path.join(working_directory, 'my_app')
+balerin = PackagingManager(root_package)
+
+balerin.load_components()
+balerin.load('my_app.accounting.api')
+loaded_packages = balerin.get_loaded_packages()
+is_package_loaded = balerin.is_package_loaded('my_app.accounting')
+```
+
 ## How to Choose Between Basic or Pro Usages:
 
 In most cases, you don't need to use the `Pro Usage` style. unless your application 
