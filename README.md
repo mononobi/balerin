@@ -27,9 +27,9 @@ Loading all application packages at startup has many benefits:
 
 **There are two ways to use Balerin in your project:**
 
-- *Basic*: Loading all packages based on filesystem order.
+- *`Basic`*: Loading all packages based on filesystem order.
   (the order could be changed between each run).
-- *Pro*: Loading all packages respecting their dependencies on each other.
+- *`Pro`*: Loading all packages respecting their dependencies on each other.
   (the order will be always the same on every run).
 
 **Sample Project Structure:**
