@@ -47,7 +47,7 @@ class PackagingManager(HookMixin, metaclass=ManagerSingletonMeta):
                                      for example `manager`. this value could be overridden
                                      in each `Package` class using `COMPONENT_NAME` attribute.
 
-        :keyword bool verbose: specifies that info should be printed on each step.
+        :keyword bool verbose: specifies that loading info should be printed on each step.
                                defaults to True if not provided.
 
         :keyword list[str] ignored_packages: list of package names that must be
