@@ -15,6 +15,7 @@ Loading all application packages at startup has many benefits:
   imports (ex. models, hooks, managers, ...).
 - Auto registration of celery tasks without the need to name all task modules a 
   specific name (usually tasks).
+- Populating application level caches at startup to boost performance at runtime.
 
 ## Installing
 
