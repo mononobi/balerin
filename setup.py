@@ -16,9 +16,7 @@ with io.open('README.md', 'rt', encoding='utf8') as readme_file:
 with io.open('src/balerin/__init__.py', 'rt', encoding='utf8') as version_file:
     VERSION = re.search(r"__version__ = '(.*?)'", version_file.read()).group(1)
 
-PACKAGES = [
-    'aniso8601>=9.0.1',
-]
+PACKAGES = []
 
 setup(
     name='balerin',
