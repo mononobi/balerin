@@ -38,9 +38,9 @@ class PackagingManager(HookMixin, metaclass=ManagerSingletonMeta):
         """
         creates a new instance of PackagingManager.
 
-        :param str | list[str] root: the absolute path of application root package.
-                                     it can be a single path or a list of paths
-                                     to be loaded respectively.
+        :param str root: the absolute path of application root package.
+                         it can be a single path or a list of paths
+                         to be loaded respectively.
 
         :keyword str base_component: specifies a module name which must be loaded before all
                                      other modules in each package if available.

@@ -20,6 +20,7 @@ class Package:
     # list of all packages that this package is dependent
     # on them and should be loaded after all of them.
     # example: ['my_app.logging', 'my_app.api.public']
+    # this can be left as an empty list if there is no dependencies.
     DEPENDS = []
 
     # specifies that this package is enabled and must be loaded.
@@ -27,6 +28,7 @@ class Package:
 
     # name of a module inside this package that should be loaded before all other modules.
     # for example: 'manager'
+    # this can be left as None if there is no such file in this package needing early loading.
     COMPONENT_NAME = None
 
     def load_configs(self):
