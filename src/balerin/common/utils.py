@@ -42,7 +42,7 @@ def try_get_fully_qualified_name(some_object):
     tries to get the fully qualified name of given object.
 
     it tries to return `__module__.__name__` for given object.
-    for example: `pyrin.api.services.create_route`.
+    for example: `my_app.api.services.create_route`.
     but if it fails to get any of those, it returns the `__str__` for that object.
 
     :param object some_object: object to get its fully qualified name.
@@ -88,8 +88,8 @@ def get_main_package_name(module_name):
     """
     gets the main package name from given module name.
 
-    for example for `pyrin.database.manager` module, it
-    returns `pyrin` as the main package name.
+    for example for `my_app.database.manager` module, it
+    returns `my_app` as the main package name.
 
     :param str module_name: module name to get its root package name.
 
