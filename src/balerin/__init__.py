@@ -10,4 +10,4 @@ from balerin.packaging.base import Package
 from balerin.packaging.manager import PackagingManager
 
 
-__version__ = '0.1.2'
+__version__ = '0.1.3'
