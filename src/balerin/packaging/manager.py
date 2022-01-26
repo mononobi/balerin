@@ -68,6 +68,18 @@ class PackagingManager(HookMixin, metaclass=ManagerSingletonMeta):
                                             then all modules matching the provided name will
                                             be ignored from loading.
 
+        :keyword function ignored_detector: a function to be used to detect if a
+                                            package or module should be ignored.
+                                            it must take two arguments, the first
+                                            is the fully qualified name and the second
+                                            is a boolean value indicating that the input
+                                            is a module. it should return a boolean value.
+
+        :keyword function module_loader: a function to be used to load custom
+                                         attributes of a module. it should take
+                                         two arguments, a name and a module instance.
+                                         the output will be ignored.
+
         :raises InvalidRootPathError: invalid root path error.
         """
 
@@ -98,6 +110,12 @@ class PackagingManager(HookMixin, metaclass=ManagerSingletonMeta):
         # holds the module name that should be loaded before
         # all other modules inside each package.
         self._base_component = options.get('base_component')
+
+        # holds a function to be used to detect if a package or module should be ignored.
+        self._ignored_detector = options.get('ignored_detector')
+
+        # holds a function to be used to load custom attributes of a module.
+        self._module_loader = options.get('module_loader')
 
         # a dict containing each package name and all of its dependency package names.
         # in the form of:
@@ -249,7 +267,8 @@ class PackagingManager(HookMixin, metaclass=ManagerSingletonMeta):
             component_module = self._merge_module_name(package_name, component_name)
 
         if component_module is not None and component_module in module_names:
-            self.load(component_module, **options)
+            module = self.load(component_module, **options)
+            self._custom_load_module(component_module, module)
         elif component_module is not None and component_module not in module_names \
                 and force_component is True:
             raise ComponentModuleNotFoundError('Component module [{name}] not '
@@ -257,9 +276,10 @@ class PackagingManager(HookMixin, metaclass=ManagerSingletonMeta):
                                                .format(name=component_module,
                                                        package=package_name))
 
-        for module in module_names:
-            if module != component_module:
-                self.load(module, **options)
+        for name in module_names:
+            if name != component_module:
+                module = self.load(name, **options)
+                self._custom_load_module(name, module)
 
         self._loaded_packages.append(package_name)
         self._package_loaded(package_name, **options)
@@ -405,6 +425,32 @@ class PackagingManager(HookMixin, metaclass=ManagerSingletonMeta):
 
                 raise PackageNotExistedError('{base_message} does not exist.'
                                              .format(base_message=base_message))
+
+    def _is_detected_ignored(self, name, is_module):
+        """
+        gets a value indicating that the input package or module should be ignored.
+
+        :param str name: fully qualified name of the package or module.
+        :param bool is_module: a value indicating that given input is a module.
+
+        :rtype: bool
+        """
+
+        if self._ignored_detector is not None:
+            return self._ignored_detector(name, is_module)
+
+        return False
+
+    def _custom_load_module(self, name, module):
+        """
+        loads the custom attributes of the given module.
+
+        :param str name: fully qualified name of the module.
+        :param Module module: module instance.
+        """
+
+        if self._module_loader is not None:
+            self._module_loader(name, module)
 
     def _find_loadable_components(self, root_path, exclude=None, **options):
         """
@@ -590,7 +636,7 @@ class PackagingManager(HookMixin, metaclass=ManagerSingletonMeta):
             if package_name.startswith(ignored) or self._is_equal(ignored, package_name):
                 return True
 
-        return False
+        return self._is_detected_ignored(package_name, is_module=False)
 
     def _is_ignored_module(self, module_name):
         """
@@ -606,7 +652,7 @@ class PackagingManager(HookMixin, metaclass=ManagerSingletonMeta):
             if module_name.endswith(ignored):
                 return True
 
-        return False
+        return self._is_detected_ignored(module_name, is_module=True)
 
     def _contains(self, root, component_name):
         """
