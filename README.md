@@ -154,14 +154,14 @@ with `Basic Usage`.
                       and the second is a boolean value indicating that the input is a module. 
                       it also should take optional keyword arguments as context. it should 
                       return a boolean value.
-                      for example: `my_detector(name, is_module, **context)`
+                      for example: *my_detector(name, is_module, \*\*context)*
 - `module_loader`: a function to be used to load custom attributes of a module. 
                    it should take two arguments, a name and a module instance.  
                    it also should take optional keyword arguments as context. 
                    the output will be ignored. 
-                   for example: `my_loader(name, module, **context)`
+                   for example: *my_loader(name, module, \*\*context)*
 - `context`: a dict containing all shared contexts to be used for example 
-             inside `ignored_detector` and `module_loader` functions.
+             inside *ignored_detector* and *module_loader* functions.
 
 ### PackagingManager Public Interface:
 
