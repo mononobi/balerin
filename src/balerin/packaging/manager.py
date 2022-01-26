@@ -73,12 +73,21 @@ class PackagingManager(HookMixin, metaclass=ManagerSingletonMeta):
                                             it must take two arguments, the first
                                             is the fully qualified name and the second
                                             is a boolean value indicating that the input
-                                            is a module. it should return a boolean value.
+                                            is a module. it also should take optional keyword
+                                            arguments as context. it should return
+                                            a boolean value. for example:
+                                            `my_detector(name, is_module, **context)`
 
         :keyword function module_loader: a function to be used to load custom
                                          attributes of a module. it should take
                                          two arguments, a name and a module instance.
-                                         the output will be ignored.
+                                         it also should take optional keyword arguments
+                                         as context. the output will be ignored. for example:
+                                         `my_loader(name, module, **context)`
+
+        :keyword dict context: a dict containing all shared contexts to
+                               be used for example inside `ignored_detector`
+                               and `module_loader` functions.
 
         :raises InvalidRootPathError: invalid root path error.
         """
@@ -116,6 +125,10 @@ class PackagingManager(HookMixin, metaclass=ManagerSingletonMeta):
 
         # holds a function to be used to load custom attributes of a module.
         self._module_loader = options.get('module_loader')
+
+        # a dict containing all shared contexts to be used for example
+        # inside `ignored_detector` and `module_loader` functions.
+        self._context = options.get('context') or {}
 
         # a dict containing each package name and all of its dependency package names.
         # in the form of:
@@ -212,6 +225,15 @@ class PackagingManager(HookMixin, metaclass=ManagerSingletonMeta):
         """
 
         return name in self._loaded_packages
+
+    def get_context(self):
+        """
+        gets a dict of all shared contexts.
+
+        :rtype: dict
+        """
+
+        return dict(**self._context)
 
     def _initialize(self):
         """
@@ -329,7 +351,7 @@ class PackagingManager(HookMixin, metaclass=ManagerSingletonMeta):
                 instance = None
                 if package_class is not None:
                     instance = package_class()
-                    instance.load_configs()
+                    instance.load_configs(**self._context)
 
                 component_name = None
                 if instance is not None:
@@ -437,7 +459,7 @@ class PackagingManager(HookMixin, metaclass=ManagerSingletonMeta):
         """
 
         if self._ignored_detector is not None:
-            return self._ignored_detector(name, is_module)
+            return self._ignored_detector(name, is_module, **self._context)
 
         return False
 
@@ -450,7 +472,7 @@ class PackagingManager(HookMixin, metaclass=ManagerSingletonMeta):
         """
 
         if self._module_loader is not None:
-            self._module_loader(name, module)
+            self._module_loader(name, module, **self._context)
 
     def _find_loadable_components(self, root_path, exclude=None, **options):
         """

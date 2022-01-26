@@ -76,7 +76,7 @@ from balerin import PackagingManager
 app = Flask('my_app')
 working_directory = os.path.abspath(os.getcwd())
 root_package = os.path.join(working_directory, 'my_app')
-balerin = PackagingManager(root_package)
+balerin = PackagingManager(root_package, context=dict(important=True, app=app))
 ```
 
 **`start.py:`**
@@ -149,6 +149,19 @@ with `Basic Usage`.
                      for example: *my_app.customers.models* or *models*.
                      notice that if only module name is provided, then all modules matching 
                      the provided name will be ignored from loading.
+- `ignored_detector`: a function to be used to detect if a package or module should be ignored.
+                      it must take two arguments, the first is the fully qualified name 
+                      and the second is a boolean value indicating that the input is a module. 
+                      it also should take optional keyword arguments as context. it should 
+                      return a boolean value.
+                      for example: `my_detector(name, is_module, **context)`
+- `module_loader`: a function to be used to load custom attributes of a module. 
+                   it should take two arguments, a name and a module instance.  
+                   it also should take optional keyword arguments as context. 
+                   the output will be ignored. 
+                   for example: `my_loader(name, module, **context)`
+- `context`: a dict containing all shared contexts to be used for example 
+             inside `ignored_detector` and `module_loader` functions.
 
 ### PackagingManager Public Interface:
 
@@ -159,6 +172,7 @@ these methods on the created object:
 - `load`: load a single module with provided name.
 - `get_loaded_packages`: get a list of all loaded package names.
 - `is_package_loaded`: get a value indicating that given package is loaded.
+- `get_context`: get a dict of all shared contexts.
 
 ```python
 import os
@@ -168,12 +182,13 @@ from balerin import PackagingManager
 
 working_directory = os.path.abspath(os.getcwd())
 root_package = os.path.join(working_directory, 'my_app')
-balerin = PackagingManager(root_package)
+balerin = PackagingManager(root_package, context=dict(important=True))
 
 balerin.load_components()
 balerin.load('my_app.accounting.api')
 loaded_packages = balerin.get_loaded_packages()
 is_package_loaded = balerin.is_package_loaded('my_app.accounting')
+context = balerin.get_context()
 ```
 
 ## Hint

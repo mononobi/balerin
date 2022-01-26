@@ -31,11 +31,13 @@ class Package:
     # this can be left as None if there is no such file in this package needing early loading.
     COMPONENT_NAME = None
 
-    def load_configs(self):
+    def load_configs(self, **context):
         """
         loads all required configs of this package.
 
         this method could be overridden in subclasses which have configs
         to be loaded on startup.
+
+        :keyword **context: all shared contexts which balerin is initialized with.
         """
         pass
