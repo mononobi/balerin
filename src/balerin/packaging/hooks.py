@@ -14,9 +14,11 @@ class PackagingHookBase(Hook):
     implement this class and register it in packaging hooks.
     """
 
-    def after_packages_loaded(self):
+    def after_packages_loaded(self, **options):
         """
         this method will be called after all application packages have been loaded.
+
+        :keyword dict context: all shared contexts which balerin is initialized with.
         """
         pass
 
@@ -25,5 +27,7 @@ class PackagingHookBase(Hook):
         this method will be called after each application package has been loaded.
 
         :param str package_name: name of the loaded package.
+
+        :keyword dict context: all shared contexts which balerin is initialized with.
         """
         pass

@@ -181,7 +181,7 @@ class PackagingManager(HookMixin, metaclass=ManagerSingletonMeta):
             for root, components in self._components.items():
                 self._load_components(components, **options)
 
-            self._after_packages_loaded()
+            self._after_packages_loaded(**options)
             self._is_loaded = True
 
             if self._verbose:
@@ -247,13 +247,14 @@ class PackagingManager(HookMixin, metaclass=ManagerSingletonMeta):
         self._loaded_packages.clear()
         self._components.clear()
 
-    def _after_packages_loaded(self):
+    def _after_packages_loaded(self, **options):
         """
         this method will call `after_packages_loaded` method of all registered hooks.
         """
 
+        options.update(context=self.get_context())
         for hook in self._get_hooks():
-            hook.after_packages_loaded()
+            hook.after_packages_loaded(**options)
 
     def _package_loaded(self, package_name, **options):
         """
@@ -262,6 +263,7 @@ class PackagingManager(HookMixin, metaclass=ManagerSingletonMeta):
         :param str package_name: name of the loaded package.
         """
 
+        options.update(context=self.get_context())
         for hook in self._get_hooks():
             hook.package_loaded(package_name, **options)
 
