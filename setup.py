@@ -27,10 +27,10 @@ setup(
         'Issue tracker': 'https://github.com/mononobi/balerin/issues',
     },
     license='BSD-3-Clause',
-    author='Mohamad Nobakht',
-    author_email='mohamadnobakht@gmail.com',
-    maintainer='Mohamad Nobakht',
-    maintainer_email='mohamadnobakht@gmail.com',
+    author='mono',
+    author_email='mononobi@gmail.com',
+    maintainer='mono',
+    maintainer_email='mononobi@gmail.com',
     description='A python package startup orchestrator. it can handle loading all packages '
                 'of an application at startup time respecting package dependencies.',
 
