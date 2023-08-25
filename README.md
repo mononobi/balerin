@@ -152,12 +152,12 @@ with `Basic Usage`.
 - `ignored_detector`: a function to be used to detect if a package or module should be ignored.
                       it must take two arguments, the first is the fully qualified name 
                       and the second is a boolean value indicating that the input is a module. 
-                      it also should take optional keyword arguments as context. it should 
+                      it should also take optional keyword arguments as context. it should 
                       return a boolean value.
                       for example: *my_detector(name, is_module, \*\*context)*
 - `module_loader`: a function to be used to load custom attributes of a module. 
                    it should take two arguments, a name and a module instance.  
-                   it also should take optional keyword arguments as context. 
+                   it should also take optional keyword arguments as context. 
                    the output will be ignored. 
                    for example: *my_loader(name, module, \*\*context)*
 - `context`: a dict containing all shared contexts to be used for example 
