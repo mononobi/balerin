@@ -2,12 +2,12 @@
 ## Your application will dance with Balerin!
 
 Balerin is a python package startup orchestrator. it can handle loading all
-packages of an application at startup time respecting package dependencies.
+packages of an application on startup respecting package dependencies.
 
-Loading all application packages at startup has many benefits:
+Loading all application packages on startup has many benefits:
 
 - Revealing all syntax errors and invalid imports on startup, preventing runtime failure.
-- Initializing all required objects at startup, providing better performance at runtime.
+- Initializing all required objects on startup, providing better performance at runtime.
 - Triggering all first level objects of a module (ex. decorators) without the need to 
   manually trigger them.
 - Better code maintainability by letting you distribute the code on their suitable 
@@ -15,7 +15,7 @@ Loading all application packages at startup has many benefits:
   imports (ex. models, hooks, managers, ...).
 - Auto registration of celery tasks without the need to name all task modules a 
   specific name (usually tasks).
-- Populating application level caches at startup to boost performance at runtime.
+- Populating application level caches on startup to boost performance at runtime.
 
 ## Can I Use Balerin With?
 
